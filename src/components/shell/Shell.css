@@ -1,0 +1,104 @@
+.shell {
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-height: 100vh;
+    height: 100vh;
+    max-height: 100vh;
+    width: var(--shell-width);
+    overflow-y: auto;
+    border-right: 1px solid var(--border-clr);
+}
+
+.shell .account {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px var(--shell-side-padding);
+    margin-bottom: 16px;
+}
+
+.shell .account img {
+    margin-right: 8px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* border: 1px solid var(--gray-100); */
+}
+
+.shell .account p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.shell .account .name {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.shell .account .email {
+    font-size: 12px;
+    color: var(--gray-30);
+}
+
+
+
+.shell .section-title {
+    padding: 0 var(--shell-side-padding);
+    margin-bottom: 12px;
+    font-size: 11px;
+    color: var(--gray-40);
+}
+
+.shell .shell-tile {
+    padding: 6px var(--shell-side-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--gray-20);
+    transition: 0.1s ease-out;
+}
+
+.shell .shell-tile:hover {
+    cursor: pointer;
+    background-color: #38393b;
+    transition: 0.1s ease-in;
+}
+
+.shell .shell-tile svg {
+    height: 20px;
+    width: 20px;
+    stroke: var(--gray-40);
+    margin-right: 8px;
+}
+
+.shell .shell-tile span {
+    width: 160px;
+    margin-right: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.shell .shell-tile .number {
+    font-size: 12px;
+    text-align: center;
+    min-width: 20px;
+    padding: 2px 4px;
+    border-radius: 6px;
+}
+
+.shell .shell-tile .dot {
+    margin-right: 8px;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+}
+
+.shell hr {
+    margin: 24px 0;
+    border: 1px solid var(--border-clr);
+    border-bottom: none;
+}

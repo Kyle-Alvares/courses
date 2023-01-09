@@ -1,0 +1,94 @@
+.project-breakdown {
+    margin-bottom: 16px;
+}
+
+.project-breakdown .project {
+    padding: 0 var(--shell-side-padding);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-breakdown .project .project-tile {
+    margin-right: 12px;
+    text-align: center;
+    line-height: 32px;
+    width: 32px;
+    height: 32px;
+    background-color: var(--cyan-40);
+    border-radius: 6px;
+}
+
+.project-breakdown .project .project-title {
+    font-size: 14px;
+}
+
+.project-breakdown .project .ppl svg {
+    height: 14px;
+    width: 14px;
+    margin-right: 4px;
+}
+
+.project-breakdown .project .project-people {
+    font-size: 12px;
+    color: var(--gray-40);
+}
+
+.project-breakdown .project svg {
+    border-radius: 6px;
+    height: 18px;
+    width: 18px;
+    stroke: var(--gray-40);
+    /* background-color: var(--gray-80); */
+}
+
+.project-breakdown .breakdown {
+    padding-left: 40px; 
+    padding-top: 8px;
+}
+
+.project-breakdown .breakdown .emoji {
+    font-size: 18px;
+    margin-right: 4px;
+}
+
+.project-breakdown .breakdown .text {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-breakdown .breakdown .breakdown-section {
+    margin-left: '12px'; 
+    color: var(--gray-20);
+    margin-left: 4px;
+    padding: 2px 18px 2px 8px;
+    width: calc(100% - 48px);
+    border-radius: 6px;
+    transition: 0.1s ease-out;
+}
+
+.project-breakdown .breakdown .breakdown-section:hover {
+    cursor: pointer;
+    background-color: var(--gray-80);
+}
+
+.project-breakdown .breakdown .last  {
+    height: 28.5px;
+    transition: 0.1s ease-out;
+}
+
+.project-breakdown .breakdown .last:hover * {
+    color: #847fe0;
+}
+
+.project-breakdown .breakdown .last * {
+    color: #736ed9;
+}
+
+.project-breakdown .breakdown .last svg {
+    height: 12px;
+    width: 12px;
+    margin-left: 4px;
+}
