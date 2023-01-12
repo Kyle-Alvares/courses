@@ -7,19 +7,21 @@ const Tag = ({
     rightIcon,
     link,
     fullyRounded = false,
+    iconSize,
     fontSize = '13px',
+    fontWeight,
     backgroundColor = "var(--cool-gray-80)",
     color = "var(--gray-10)"
 }) => {
     return (
-        <div className={styles.tag} style={{ 
-            padding: fullyRounded ? ' 4px 12px' : '4px 8px', 
-            backgroundColor, borderRadius: 
-            fullyRounded ? '16px' : '6px' 
+        <div className={styles.tag} style={{
+            padding: fullyRounded ? ' 4px 12px' : '4px 8px',
+            backgroundColor, borderRadius:
+                fullyRounded ? '16px' : '6px'
         }}>
-            {leftIcon && <div className='vertical-align' style={{ marginRight: "4px"}}>{leftIcon}</div>}
-            <span style={{ color, fontSize }}>{text}</span>
-            {rightIcon && <div className='vertical-align' style={{ marginLeft: "4px"}}>{rightIcon}</div>}
+            {leftIcon && <div className='vertical-align' style={{ marginRight: "4px", height: iconSize, width: iconSize }}>{leftIcon}</div>}
+            <span style={{ color, fontSize, fontWeight }}>{text}</span>
+            {rightIcon && <div className='vertical-align' style={{ marginLeft: "4px", height: iconSize, width: iconSize }}>{rightIcon}</div>}
         </div>
     )
 }
