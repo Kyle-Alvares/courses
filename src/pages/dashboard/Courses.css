@@ -1,0 +1,53 @@
+.courses {
+    width: 425px;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
+    /* background-color: #1c1c1c; */
+    border-right: 1px solid var(--border-clr);
+}
+
+.courses h1 {
+    font-size: 30px;
+    padding-top: 48px;
+    padding-left: 32px;
+    padding-right: 32px;
+    font-weight: 450;
+}
+
+.courses .searchbar {
+    margin: 0 32px;
+    margin-top: 18px;
+    margin-bottom: 32px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: #27292c;
+    border: 1px solid var(--border-clr);
+}
+
+.courses .searchbar svg {
+    margin-right: 4px;
+    height: 16px;
+    width: 16px;
+}
+
+.courses .searchbar input {
+    font-size: 14px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.courses hr {
+    margin: 24px 0;
+    border: 1px solid var(--border-clr);
+    border-bottom: none;
+}
+
+.course-list {
+    padding: 0 16px;
+    margin-top: -16px;
+    max-height: calc(100vh - 171.5px); /* ~ 88.5px */
+    overflow-y: auto;
+    padding-bottom: 16px;
+}

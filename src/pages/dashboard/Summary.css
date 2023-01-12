@@ -1,0 +1,40 @@
+.summary .week {
+    min-width: calc(100vw - 425px - var(--shell-width));
+    max-width: calc(100vw - 425px - var(--shell-width));
+    display: inline-flex;
+    justify-content: space-evenly;
+}
+
+.summary #upcoming-dates { 
+    padding: 4px 0;
+    display: inline-flex;
+    justify-content: space-evenly;
+    min-width: calc(100vw - 425px - var(--shell-width));
+    max-width: calc(100vw - 425px - var(--shell-width));
+    overflow-x: auto;
+    background-color: #27292c;
+    border-top: 1px solid var(--border-clr);
+    border-bottom: 1px solid var(--border-clr);
+}
+
+.summary .upcoming-date {
+    display: inline-flex;
+    padding: 0 12px;
+}
+
+.summary .date {
+    text-align: center;
+}
+
+.summary .date .month {
+    /* display: none; */
+    font-weight: 425;
+    font-size: 10px;
+    color: var(--gray-40);
+}
+
+.summary .date .day {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--gray-20);
+}

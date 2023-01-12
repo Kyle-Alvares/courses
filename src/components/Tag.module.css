@@ -1,0 +1,20 @@
+.tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+
+.tag:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+span {
+    white-space: nowrap;
+}
+
+svg {
+    height: 16px;
+    width: 16px;
+}

@@ -1,0 +1,20 @@
+.course-link {
+    display: inline-flex;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+.course-link:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+.course-link svg {
+    margin-right: 4px;
+    height: 16px;
+    width: 16px;
+}
+
+.course-link span {
+    font-size: 12px;
+}

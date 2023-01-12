@@ -2,11 +2,13 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 9;
     min-height: 100vh;
     height: 100vh;
     max-height: 100vh;
     width: var(--shell-width);
     overflow-y: auto;
+    background-color: var(--background-clr);
     border-right: 1px solid var(--border-clr);
 }
 

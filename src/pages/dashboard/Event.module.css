@@ -1,0 +1,29 @@
+.event {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+    height: 48px;
+    min-width: calc(100vw - 425px - var(--shell-width));
+    max-width: calc(100vw - 425px - var(--shell-width));
+    overflow-x: auto;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border-clr);
+}
+
+.title {
+    white-space: nowrap
+}
+
+.title svg {
+    height: 16px;
+    width: 16px;
+    margin-right: 8px;
+}
+
+.details {
+    font-size: 14px;
+}
+
+.details > * {
+    margin-left: 8px;
+}
