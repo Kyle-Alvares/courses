@@ -18,6 +18,10 @@ header {
     font-weight: 450;
 }
 
+.actions > * {
+    margin-left: 8px;
+}
+
 .courseDetailsContainer {
     max-height: calc(100vh - 64px);
     overflow-y: auto;
@@ -30,8 +34,13 @@ header {
 }
 
 .quickLinks {
-    height: 72px;
+    height: 56px;
     border-bottom: 1px solid var(--border-clr);
+    padding: 0 24px;
+}
+
+.quickLinks > * {
+    margin-right: 8px;
 }
 
 

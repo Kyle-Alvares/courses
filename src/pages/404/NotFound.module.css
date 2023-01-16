@@ -1,0 +1,29 @@
+.notFound {
+    margin-top: 128px;
+    text-align: center;
+}
+
+.main {
+    margin-top: 32px;
+    font-size: 256px;
+    font-weight: 500;
+    background: linear-gradient(to right, var(--purple-20) 20%, var(--blue-20) 40%, var(--teal-20) 60%, var(--accent) 80%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 10s linear infinite;
+}
+
+.sub {
+    font-size: 20px;
+    font-weight: 450;
+    color: var(--cool-gray-20);
+}
+
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}

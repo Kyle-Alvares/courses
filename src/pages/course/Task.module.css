@@ -1,0 +1,21 @@
+.task {
+    height: 40px;
+    padding: 0 24px;
+    font-size: 13px;
+    background-color: #27292c;
+    border-bottom: 1px solid var(--border-clr);
+}
+
+/* .task svg {
+    height: 20px;
+    width: 20px;
+} */
+
+.title {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.summary {
+    color: var(--gray-40);
+}

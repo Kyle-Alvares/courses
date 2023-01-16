@@ -1,6 +1,5 @@
 import styles from './CourseDetails.module.css';
 import PropTypes from 'prop-types';
-import Tag from '../../components/Tag';
 import Week from '../../components/Week';
 
 const CourseDetails = ({

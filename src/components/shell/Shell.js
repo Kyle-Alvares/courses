@@ -8,8 +8,8 @@ export default function Shell() {
             <div className="account">
                 <img src="/profile.webp" alt="profile" />
                 <div>
-                    <p className="name">Kyle Alvares</p>
-                    <p className="email">kyle.alvares@ontariotechu.net</p>
+                    <p className="name">{localStorage.getItem('name')}</p>
+                    <p className="email">{localStorage.getItem('email')}</p>
                 </div>
             </div>
             <p className="section-title">GENERAL</p>
