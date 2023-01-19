@@ -1,0 +1,21 @@
+.boxToggle {
+    height: 28px;
+    width: 28px;
+    line-height: 26px;
+    font-size: 13px;
+    text-align: center;
+    border: 1px solid var(--border-clr);
+    border-radius: 6px;
+    transition: 0.1s ease;
+}
+
+.boxToggle:hover {
+    font-size: 11px;
+    cursor: pointer;
+    background-color: var(--cool-gray-80);
+    transition: 0.1s ease;
+}
+
+.boxToggle.selected {
+    background-color: var(--accent);
+}

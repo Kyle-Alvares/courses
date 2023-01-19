@@ -1,65 +1,34 @@
 import './Summary.css';
 import Event from './Event';
 import Tag from '../../components/Tag';
+import { months, weekAbbr } from '../../data/dates';
 // import $ from 'jquery';
 
 export default function Summary() {
-    // $('#upcoming-dates').on('mouseover', (e) => {
-    //     console.log('in');
-    //     $('#upcoming-dates .month').css('display', 'block')
-    // });
-    // $('#upcoming-dates').on('mouseleave', (e) => {
-    //     console.log('out')
-    //     $('#upcoming-dates .month').css('display', 'none')
-    // });
+
+    const today = new Date();
+    let weekDates = [];
+    for(let i = 0; i < 7; i++) {
+        let date = new Date();
+        date.setDate(today.getDate() - today.getDay() + i);
+        weekDates.push(date);
+    }
+
     return (
         <div className="summary">
-            <p style={{ textAlign: 'center', fontSize: '14px', padding: '8px 0' }}>January 2023</p>
+            <p style={{ textAlign: 'center', fontSize: '14px', padding: '12px 0', fontWeight: '500' }}>
+                {months[today.getMonth()]} {today.getFullYear()}
+            </p>
             <div id="upcoming-dates">
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">SUN</p>
-                        <p className="day">9</p>
+                {weekAbbr.map((weekday, index) => (
+                    <div className="upcoming-date" key={weekday}>
+                        <div className={`date ${today.getDay() === index ? 'today' : ''}`}>
+                            <p className="weekday">{weekday}</p>
+                            <p className="day">{weekDates[index].getDate()}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">MON</p>
-                        <p className="day">10</p>
-                    </div>
-                </div>
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">TUES</p>
-                        <p className="day">11</p>
-                    </div>
-                </div>
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">WED</p>
-                        <p className="day">12</p>
-                    </div>
-                </div>
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">THURS</p>
-                        <p className="day">13</p>
-                    </div>
-                </div>
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">FRI</p>
-                        <p className="day">14</p>
-                    </div>
-                </div>
-                <div className="upcoming-date">
-                    <div className="date">
-                        <p className="month">SAT</p>
-                        <p className="day">15</p>
-                    </div>
-                </div>
+                ))}
             </div>
-            {/* <p style={{ fontWeight: 500, fontSize: '18px' }}>Today</p> */}
             <Event title="Systems Programming">
                 <Tag text="Join Lecture"
                     fullyRounded={true}

@@ -3,17 +3,45 @@
     min-height: 100vh;
     max-height: 100vh;
     overflow-y: hidden;
+    padding-top: 48px;
     /* background-color: #1c1c1c; */
     border-right: 1px solid var(--border-clr);
 }
 
 .courses h1 {
     font-size: 30px;
-    padding-top: 48px;
-    padding-left: 32px;
-    padding-right: 32px;
     font-weight: 450;
 }
+
+.courses .heading {
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.courses .heading button {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 2px;
+    height: 22px;
+    width: 22px;
+    background-color: var(--cool-gray-80);
+    border-radius: 6px;
+    transition: 0.1s ease-out;
+}
+
+.courses .heading button:hover {
+    padding: 3px;
+    cursor: pointer;
+    background-color: var(--cool-gray-70);
+    transition: 0.1s ease-in;
+} 
+
+.courses .heading button svg {
+    height: 22px;
+    width: 22px;
+}
+
 
 .courses .searchbar {
     margin: 0 32px;

@@ -5,10 +5,11 @@ import Dashboard from './pages/dashboard/Dashboard';
 import NotFound from './pages/404/NotFound';
 import Course from './pages/course/Course';
 import Shell from './components/shell/Shell';
+import { getIsSetup } from './db/db';
 
 function App() {
 
-  const isSetup = localStorage.getItem('isSetup');
+  const isSetup = getIsSetup();
 
   if (isSetup !== 'true') {
     return <Setup />

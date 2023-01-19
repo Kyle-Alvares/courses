@@ -1,38 +1,31 @@
-import { useState } from 'react'
 import styles from './TextInput.module.css'
-import Label from './Label'
 
 export default function TextInput({
   leftIcon,
   placeholder,
-  width,
+  width = "100%",
   label,
   name,
   id,
   backgroundColor = '#27292c',
   borderColor = 'var(--border-clr)',
   required = false,
-  input,
-  setInput
+  value,
+  setValue
 }) {
-
-  // const [input, setInput] = useState('');
 
   return (
     <>
-      {label && <Label name={name}>{label}</Label>}
+      {label && <label name={name}>{label}</label>}
       <div className={`${styles.textInput} vertical-align`} style={{ backgroundColor, borderColor }}>
-        <div className="vertical-align">
-          {leftIcon}
-          <input type="text"
-            name={name}
-            id={id}
-            placeholder={placeholder}
-            style={{ width }}
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            required={required} />
-        </div>
+        {leftIcon}
+        <input type="text"
+          name={name}
+          id={id}
+          placeholder={placeholder}
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          required={required} />
       </div>
     </>
   )

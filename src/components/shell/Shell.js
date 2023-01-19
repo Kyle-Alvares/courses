@@ -1,6 +1,7 @@
 import './Shell.css';
 import ShellTile from './ShellTile';
 import ProjectBreakdown from './ProjectBreakdown';
+import { getName, getEmail } from '../../db/db';
 
 export default function Shell() {
     return (
@@ -8,8 +9,8 @@ export default function Shell() {
             <div className="account">
                 <img src="/profile.webp" alt="profile" />
                 <div>
-                    <p className="name">{localStorage.getItem('name')}</p>
-                    <p className="email">{localStorage.getItem('email')}</p>
+                    <p className="name">{getName()}</p>
+                    <p className="email">{getEmail()}</p>
                 </div>
             </div>
             <p className="section-title">GENERAL</p>

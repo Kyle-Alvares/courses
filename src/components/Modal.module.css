@@ -1,0 +1,24 @@
+.modalBackdrop {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.modal {
+    display: block;
+    margin: auto;
+    max-height: calc(100vh - 150px - 20%);
+    min-width: 300px;
+    max-width: 80%;
+    margin-top: 150px;
+    padding: 16px;
+    background-color: var(--background-clr);
+    border-radius: 12px;
+    overflow-y: auto;
+}

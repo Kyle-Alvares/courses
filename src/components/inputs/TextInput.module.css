@@ -6,12 +6,13 @@
 }
 
 .textInput svg {
-    margin-right: 4px;
+    margin-right: 6px;
     height: 16px;
     width: 16px;
 }
 
 .textInput input {
+    width: 100%;
     font-size: 14px;
     outline: none;
     border: none;
