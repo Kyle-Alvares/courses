@@ -28,6 +28,10 @@ body {
   background-color: var(--background-clr);
 }
 
+a {
+  text-decoration: none;
+}
+
 button {
   background: transparent;
   border: none;
@@ -39,6 +43,58 @@ label {
   margin-bottom: 4px;
   font-size: 12px;
   color: var(--cool-gray-40);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: url('../../public/icons/custom/clock.svg');
+}
+
+input[type="time"] {
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 6px;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  background-color: var(--cool-gray-80);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  height: 14px;
+  width: 14px;
+  border-radius: 6px;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  cursor: pointer;
+  background-color: var(--accent);
+
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: url('../../public/icons/custom/calendar-days.svg');
+}
+
+input[type="date"] {
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 6px;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  background-color: var(--cool-gray-80);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  height: 14px;
+  width: 14px;
+  border-radius: 6px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  cursor: pointer;
+  background-color: var(--accent);
+
 }
 
 .vertical-align {

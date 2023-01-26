@@ -17,7 +17,7 @@ export default function TextInput({
   return (
     <>
       {label && <label name={name}>{label}</label>}
-      <div className={`${styles.textInput} vertical-align`} style={{ backgroundColor, borderColor }}>
+      <div className={`${styles.textInput} vertical-align`} style={{ backgroundColor, borderColor, width }}>
         {leftIcon}
         <input type="text"
           name={name}

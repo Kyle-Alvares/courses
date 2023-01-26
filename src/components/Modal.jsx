@@ -10,7 +10,7 @@ export default function Modal({
 }) {
 
     const handleClick = (e) => {
-        if(onBackdropClick)
+        if (onBackdropClick)
             e.target === e.currentTarget && onBackdropClick();
     }
 

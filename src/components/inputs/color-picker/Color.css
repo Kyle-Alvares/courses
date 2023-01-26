@@ -1,0 +1,39 @@
+.radio {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio__input {
+    display: none;
+}
+
+.color-radio {
+    width: 24px;
+    height: 24px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+.color-radio::after {
+    display: block;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background-color: var(--gray-100);
+    border-radius: 3px;
+    transform: scale(0);
+    transition: var(--transition);
+}
+
+.radio__input:checked + .color-radio::after {
+    transform: scale(1);
+    transition: 0.1s ease;
+}
+
+.color-picker > * {
+    margin-right: 8px;
+}

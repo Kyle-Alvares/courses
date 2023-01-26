@@ -1,18 +1,25 @@
 import './Shell.css';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ShellTile = ({text, icon, color, number}) => {
+const ShellTile = ({
+    link,
+    text, 
+    icon, 
+    color, 
+    number
+  }) => {
 
   return (
     // TODO: Convert to Link & add title attr.
-    <div className="shell-tile"> 
+    <Link className="shell-tile" to={link}> 
       <div className="vertical-align">
         {icon}
         <span>{text}</span>
       </div>
       {number && <div className={`number ${color}`}>{number}</div>}
       {!number && <div className="dot" style={{backgroundColor: color}}></div>}
-    </div>
+    </Link>
   )
 }
 

@@ -6,15 +6,17 @@ import Tag from '../../components/Tag';
 import SizedBox from '../../components/SizedBox';
 import TextInput from '../../components/inputs/TextInput';
 import BoxToggle from '../../components/inputs/BoxToggle';
+import ColorPicker from '../../components/inputs/color-picker/ColorPicker';
 
 export default function NewCourse({
     onBackdropClick,
     dismissModal,
+    updateCourses
 }) {
 
     const [course, setCourse] = useState('');
     const [prof, setProf] = useState('');
-    const [type, setType] = useState('');
+    // const [type, setType] = useState('');
     const [code, setCode] = useState('');
     const [startTime, setStartTime] = useState('12:00');
     const [endTime, setEndTime] = useState('12:00');
@@ -23,42 +25,58 @@ export default function NewCourse({
     const [wed, setWed] = useState(false);
     const [thurs, setThurs] = useState(false);
     const [fri, setFri] = useState(false);
+    const [location, setLocation] = useState('');
+    const [meeting, setMeeting] = useState('');
+    const [color, setColor] = useState('var(--red-50)');
     const [animation, setAnimation] = useState('');
-
-    const shake = 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both'
+    
+    const shake = 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both';
 
     const onSubmit = () => {
-        if(course.trim() === '' ||
+        if (course.trim() === '' ||
             prof.trim() === '' ||
-            type.trim() === '' ||
+            location.trim() === '' ||
             code.trim() === '' ||
             startTime.trim() === '' ||
             endTime.trim() === '') {
-                setAnimation(shake);
-                setTimeout(() => setAnimation(''), 820);
-            } else {
-                let courses = [];
-                if(!localStorage.courses) localStorage.courses = JSON.stringify(courses);
-                courses = JSON.parse(localStorage.courses);
-                courses.push(
-                    {
-                        id: uuid(),
-                        course,
-                        prof,
-                        type,
-                        code,
-                        startTime,
-                        endTime,
+            setAnimation(shake);
+            setTimeout(() => setAnimation(''), 820);
+        } else {
+            let courses = [];
+            if (!localStorage.courses) localStorage.courses = JSON.stringify(courses);
+            courses = JSON.parse(localStorage.courses);
+            courses.push(
+                {
+                    id: uuid(),
+                    course,
+                    prof,
+                    type: 'Lecture',
+                    code,
+                    startTime,
+                    endTime,
+                    schedule: [
+                        false,
                         mon,
                         tues,
                         wed,
                         thurs,
-                        fri
-                    }
-                );
-                localStorage.courses = JSON.stringify(courses);
-                dismissModal();
-            }
+                        fri,
+                        false
+                    ],
+                    location,
+                    meeting,
+                    color,
+                    quicklinks: meeting.trim() === '' ? [] : [{
+                        text: 'Lecture',
+                        color: 'green',
+                        icon: 'video-camera',
+                        href: meeting,
+                    }]
+                }
+            );
+            updateCourses(courses);
+            dismissModal();
+        }
     }
 
     return (
@@ -93,13 +111,14 @@ export default function NewCourse({
                 <div className="space-between">
                     <div>
                         <TextInput
-                            label="Type"
-                            placeholder="ex. Lecture"
+                            label="Location"
+                            placeholder="Location"
                             backgroundColor='rgba(0,0,0,0.3)'
-                            value={type}
-                            setValue={setType}
+                            value={location}
+                            setValue={setLocation}
                             leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                             </svg>
                             }>
                         </TextInput>
@@ -138,13 +157,32 @@ export default function NewCourse({
                         <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} />
                     </div>
                 </div>
+                <div>
+                    <SizedBox height='4px'></SizedBox>
+                    <TextInput
+                        label="Meeting link (optional)"
+                        placeholder="Meeting Link"
+                        backgroundColor='rgba(0,0,0,0.3)'
+                        value={meeting}
+                        setValue={setMeeting}
+                        leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                        }>
+                    </TextInput>
+                    <div>
+                        <SizedBox height='8px'></SizedBox>
+                        <label>Color</label>
+                        <ColorPicker setColor={setColor}></ColorPicker>
+                    </div>
+                </div>
             </div>
             {/* <SizedBox height='8px'></SizedBox> */}
-            <SizedBox height='40px' />
+            <SizedBox height='20px' />
             <div className={styles.submit}>
-                <Tag text="Cancel" fontWeight="500" color="var(--red-60)" onClick={dismissModal}></Tag>
+                <Tag text="Cancel" fontWeight="500" color="var(--red-60)" onClick={dismissModal} backgroundColor="transparent"></Tag>
                 <Tag text="Submit" backgroundColor='var(--accent)' fontWeight="500" onClick={onSubmit}></Tag>
             </div>
-        </Modal>
+        </Modal >
     )
 }

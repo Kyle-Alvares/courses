@@ -8,18 +8,18 @@ const CourseDetails = ({
   instructor,
   times,
   location,
-  crn,
-  mon = false,
-  tues = false,
-  wed = false,
-  thurs = false,
-  fri = false
+  schedule = [false, false, false, false, false, false, false]
 }) => {
   return (
     <div className={styles.courseDetails}>
-        <p className={styles.type}>{type}</p>
+      <p className={styles.type}>{type}</p>
       <div className={`space-between ${styles.classes}`}>
-        <Week mon={mon} tues={tues} wed={wed} thurs={thurs} fri={fri} />
+        <Week
+          mon={schedule[1]}
+          tues={schedule[2]}
+          wed={schedule[3]}
+          thurs={schedule[4]}
+          fri={schedule[5]} />
         <span className={styles.time}>{times}</span>
       </div>
       <div className={styles.details}>
@@ -29,11 +29,7 @@ const CourseDetails = ({
       {instructor && <div className={styles.details}>
         <span>{isProf ? 'Professor:' : 'Instructor:'}</span>
         <span>{instructor}</span>
-      </div> }
-      { crn && <div className={styles.details}>
-        <span>CRN:</span>
-        <span>{crn}</span>
-      </div> }
+      </div>}
     </div>
   )
 }

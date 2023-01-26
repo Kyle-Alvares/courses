@@ -1,3 +1,8 @@
+.summary {
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
 .summary .week {
     min-width: calc(100vw - 425px - var(--shell-width));
     max-width: calc(100vw - 425px - var(--shell-width));
@@ -5,7 +10,7 @@
     justify-content: space-evenly;
 }
 
-.summary #upcoming-dates { 
+.summary #upcoming-dates {
     padding: 4px 0;
     display: inline-flex;
     justify-content: space-evenly;
@@ -49,9 +54,39 @@
     transition: 0.1s ease;
 }
 
-.summary .today .day {
+.summary .date .day.selected {
+    background-color: var(--cool-gray-70);
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.summary .today .day,
+.summary .today .day.selected {
     background-color: var(--accent);
     margin-top: 2px;
     font-size: 14px;
     font-weight: 600;
+}
+
+input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.new-task {
+    height: 40px;
+    padding: 0 24px;
+    font-size: 13px;
+    /* background-color: #27292c; */
+    border-bottom: 1px solid var(--border-clr);
+}
+
+.new-task input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
 }

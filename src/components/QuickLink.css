@@ -1,0 +1,39 @@
+.stroke-red svg {
+    stroke: var(--red-50);
+}
+
+.stroke-blue svg {
+    stroke: var(--blue-50);
+}
+
+.stroke-purple svg {
+    stroke: var(--purple-50);
+}
+
+.stroke-magenta svg {
+    stroke: var(--magenta-50);
+}
+
+.stroke-green svg {
+    stroke: var(--green-50);
+}
+
+.stroke-teal svg {
+    stroke: var(--teal-50);
+}
+
+.stroke-cyan svg {
+    stroke: var(--cyan-50);
+}
+
+.stroke-gray svg {
+    stroke: var(--gray-50);
+}
+
+.stroke-cool-gray svg {
+    stroke: var(--cool-gray-50);
+}
+
+.stroke-warm-gray svg {
+    stroke: var(--warm-gray-50);
+}

@@ -8,32 +8,9 @@
 }
 
 .form > * {
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 .days > * {
     margin-right: 8px;
-}
-
-input[type="time"] {
-    padding: 4px;
-    padding-left: 8px;
-    padding-right: 6px;
-    border-radius: 6px;
-    outline: none;
-    border: none;
-    background-color: var(--cool-gray-80);
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator{
-    background: url('../../../public/icons/clock.svg');
-    height: 14px;
-    width: 14px;
-    border-radius: 6px;
-}
-
-input[type="time"]::-webkit-calendar-picker-indicator:hover{
-    cursor: pointer;
-    background-color: var(--accent);
-
 }

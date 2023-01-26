@@ -1,0 +1,22 @@
+textarea {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-clr);
+    border-radius: 6px;
+    width: 100%;
+    resize: none;
+    padding: 8px;
+}
+
+textarea:focus {
+    outline: 1px solid var(--cool-gray-60);
+}
+
+label {
+    white-space: nowrap;
+}
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -1,14 +1,111 @@
 import styles from './Course.module.css';
+import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
+import { useNavigate, useParams } from 'react-router-dom';
 import Tag from '../../components/Tag';
-import Task from './Task';
+import QuickLink from '../../components/QuickLink';
+// import Task from './Task';
+import Task from '../../components/Task';
 import CourseDetails from './CourseDetails';
+import NewQuickLink from './NewQuickLink';
+import NewSection from './NewSection';
+import EditSection from './EditSection';
+import { formatTime } from '../../data/dates';
 
-export default function Course() {
+export default function Course({ courses, updateCourses, tasks, updateTasks }) {
+
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const [showNewQuickLink, setShowNewQuickLink] = useState(false);
+  const [showNewSection, setShowNewSection] = useState(false);
+  const [showEditSection, setShowEditSection] = useState(false);
+  const [showNewTask, setShowNewTask] = useState(false);
+  const [sectionIndex, setSectionIndex] = useState(0);
+  const [newTask, setNewTask] = useState('');
+
+  // find course
+
+  let courseIndex = -1;
+  for (let i = 0; i < courses.length; i++) {
+    if (courses[i].id === params.id) {
+      courseIndex = i;
+      break;
+    }
+  }
+
+  if (courseIndex === -1) navigate('/404');
+
+  let course = courses[courseIndex];
+
+  const semesters = ["Winter", "Summer", "Fall"];
+  const today = new Date();
+
+  const semester = semesters[Math.floor(today.getMonth() / 4)] + " " + today.getFullYear();
+
+  const editSection = (index) => {
+    setSectionIndex(index);
+    setShowEditSection(true);
+  }
+
+  const handleNewTask = (e) => {
+    if (e.key === 'Escape') {
+      setNewTask('');
+      setShowNewTask(false);
+    } else if (e.key === "Enter") {
+      if (newTask.trim() !== "") saveNewTask();
+    }
+  }
+
+  const saveNewTask = () => {
+    tasks = [{
+      id: uuid(),
+      task: newTask,
+      subtasks: [],
+      group: courses[courseIndex].id,
+      completed: false,
+      pinned: false,
+      dueDate: '',
+      time: '',
+    }, ...tasks];
+    updateTasks(tasks);
+    setNewTask('');
+    setShowNewTask(false);
+  }
+
   return (
     <div className={styles.course}>
+
+      {showNewQuickLink &&
+        <NewQuickLink
+          courses={courses}
+          updateCourses={updateCourses}
+          courseIndex={courseIndex}
+          dismissModal={() => setShowNewQuickLink(false)} />
+      }
+
+      {showNewSection &&
+        <NewSection
+          courses={courses}
+          updateCourses={updateCourses}
+          courseIndex={courseIndex}
+          dismissModal={() => setShowNewSection(false)}
+        />
+      }
+
+      {showEditSection &&
+        <EditSection
+          courses={courses}
+          updateCourses={updateCourses}
+          courseIndex={courseIndex}
+          sectionIndex={sectionIndex}
+          dismissModal={() => setShowEditSection(false)}
+        />
+      }
+
       <div className={styles.main}>
         <header className='space-between'>
-          <p className={styles.courseName}>Systems Programming</p>
+          <p className={styles.courseName}>{course.course}</p>
           <div className={`vertical-align ${styles.actions}`}>
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -22,78 +119,134 @@ export default function Course() {
             </svg>
           </div>
         </header>
-        <div className={`vertical-align ${styles.quickLinks}`}>
-          <Tag text="Lecture" backgroundColor='var(--green-100)' borderColor='var(--green-50)' color="var(--green-10)"
-            leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--green-50)" className="w-6 h-6">
-              <path strokeLinecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-            </svg>
-            }></Tag>
-          <Tag text="Lab" backgroundColor='var(--blue-100)' borderColor='var(--blue-50)'
-            leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--blue-50)" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-            </svg>
-            }></Tag>
-          <Tag text="Course Link" backgroundColor='var(--cool-gray-100)' borderColor='var(--cool-gray-50)'
-            leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--cool-gray-50)" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-            </svg>
-            }></Tag>
-          <Tag text="Discord" backgroundColor='var(--purple-100)' borderColor='var(--purple-50)'
-            leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="var(--purple-50)" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-            </svg>
-            }></Tag>
+        <div className={`space-between ${styles.quickLinks}`}>
+          <div className={styles.left}>
+            {course.quicklinks && course.quicklinks.map((quicklink, index) =>
+              <QuickLink key={index}
+                text={quicklink.text}
+                color={quicklink.color}
+                href={quicklink.href}
+                icon={
+                  // TODO: FIND SOLUTION FOR SVG STROKE
+                  <img
+                    height="16px"
+                    width="16px"
+                    style={{ filter: 'invert(90%)' }}
+                    src={`/icons/outline/${quicklink.icon}.svg`} alt={quicklink.icon} />}
+              />
+            )}
+          </div>
+          <div className={styles.right}>
+            <QuickLink text="Edit Links" color="cool-gray" onClick={() => setShowNewQuickLink(true)} icon={
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+            } />
+          </div>
         </div>
-        <Task title="Create Python Scripts"
-          icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--blue-50)" className="w-6 h-6">
-            <path fillRule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clipRule="evenodd" />
-          </svg>} subtasks={[{ task: 'CSV to JSON', date: 'Nov 22' }]}></Task>
-        <Task title="Create Python Scripts"
-          icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--green-50)" className="w-6 h-6">
-            <path d="M16.5 7.5h-9v9h9v-9z" />
-            <path fillRule="evenodd" d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 0 011.5 0v.75h.75a3 3 0 013 3v.75H21A.75.75 0 0121 9h-.75v2.25H21a.75.75 0 010 1.5h-.75V15H21a.75.75 0 010 1.5h-.75v.75a3 3 0 01-3 3h-.75V21a.75.75 0 01-1.5 0v-.75h-2.25V21a.75.75 0 01-1.5 0v-.75H9V21a.75.75 0 01-1.5 0v-.75h-.75a3 3 0 01-3-3v-.75H3A.75.75 0 013 15h.75v-2.25H3a.75.75 0 010-1.5h.75V9H3a.75.75 0 010-1.5h.75v-.75a3 3 0 013-3h.75V3a.75.75 0 01.75-.75zM6 6.75A.75.75 0 016.75 6h10.5a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z" clipRule="evenodd" />
-          </svg>
-          } subtasks={[{ task: 'Read about multicore processing', date: 'Nov 22' }, { task: 'CSV to JSON', date: 'Nov 22' }]}></Task>
-        <Task title="Create Python Scripts"
-          icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--purple-50)" className="w-6 h-6">
-            <path d="M11.584 2.376a.75.75 0 01.832 0l9 6a.75.75 0 11-.832 1.248L12 3.901 3.416 9.624a.75.75 0 01-.832-1.248l9-6z" />
-            <path fillRule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 010 1.5H3a.75.75 0 010-1.5h.75v-9.918a.75.75 0 01.634-.74A49.109 49.109 0 0112 9c2.59 0 5.134.202 7.616.592a.75.75 0 01.634.74zm-7.5 2.418a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75zm3-.75a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0v-6.75a.75.75 0 01.75-.75zM9 12.75a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75z" clipRule="evenodd" />
-            <path d="M12 7.875a1.125 1.125 0 100-2.25 1.125 1.125 0 000 2.25z" />
-          </svg>
+        <div className={styles.tasks}>
+          {/* <Task title="Create Python Scripts"
+            icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--blue-50)" className="w-6 h-6">
+              <path fillRule="evenodd" d="M2.25 6a3 3 0 013-3h13.5a3 3 0 013 3v12a3 3 0 01-3 3H5.25a3 3 0 01-3-3V6zm3.97.97a.75.75 0 011.06 0l2.25 2.25a.75.75 0 010 1.06l-2.25 2.25a.75.75 0 01-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 010-1.06zm4.28 4.28a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clipRule="evenodd" />
+            </svg>} subtasks={[{ task: 'CSV to JSON', date: 'Nov 22' }]}></Task>
+          <Task title="Create Python Scripts"
+            icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--green-50)" className="w-6 h-6">
+              <path d="M16.5 7.5h-9v9h9v-9z" />
+              <path fillRule="evenodd" d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 0 011.5 0v.75h.75a3 3 0 013 3v.75H21A.75.75 0 0121 9h-.75v2.25H21a.75.75 0 010 1.5h-.75V15H21a.75.75 0 010 1.5h-.75v.75a3 3 0 01-3 3h-.75V21a.75.75 0 01-1.5 0v-.75h-2.25V21a.75.75 0 01-1.5 0v-.75H9V21a.75.75 0 01-1.5 0v-.75h-.75a3 3 0 01-3-3v-.75H3A.75.75 0 013 15h.75v-2.25H3a.75.75 0 010-1.5h.75V9H3a.75.75 0 010-1.5h.75v-.75a3 3 0 013-3h.75V3a.75.75 0 01.75-.75zM6 6.75A.75.75 0 016.75 6h10.5a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z" clipRule="evenodd" />
+            </svg>
+            } subtasks={[{ task: 'Read about multicore processing', date: 'Nov 22' }, { task: 'CSV to JSON', date: 'Nov 22' }]}></Task>
+          <Task title="Create Python Scripts"
+            icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--purple-50)" className="w-6 h-6">
+              <path d="M11.584 2.376a.75.75 0 01.832 0l9 6a.75.75 0 11-.832 1.248L12 3.901 3.416 9.624a.75.75 0 01-.832-1.248l9-6z" />
+              <path fillRule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 010 1.5H3a.75.75 0 010-1.5h.75v-9.918a.75.75 0 01.634-.74A49.109 49.109 0 0112 9c2.59 0 5.134.202 7.616.592a.75.75 0 01.634.74zm-7.5 2.418a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75zm3-.75a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0v-6.75a.75.75 0 01.75-.75zM9 12.75a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75z" clipRule="evenodd" />
+              <path d="M12 7.875a1.125 1.125 0 100-2.25 1.125 1.125 0 000 2.25z" />
+            </svg>
 
-          } subtasks={[{ task: 'Read about multicore processing', date: 'Nov 22' }, { task: 'CSV to JSON', date: 'Nov 22', completed: true }]}></Task>
+            } subtasks={[{ task: 'Read about multicore processing', date: 'Nov 22' }, { task: 'CSV to JSON', date: 'Nov 22', completed: true }]}></Task>
+
+          {courses[courseIndex].tasks
+            && courses[courseIndex].tasks.map(task =>
+              <Task key={task.id}
+                title={task.task}
+                icon={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--purple-50)" className="w-6 h-6">
+                  <path d="M11.584 2.376a.75.75 0 01.832 0l9 6a.75.75 0 11-.832 1.248L12 3.901 3.416 9.624a.75.75 0 01-.832-1.248l9-6z" />
+                  <path fillRule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 010 1.5H3a.75.75 0 010-1.5h.75v-9.918a.75.75 0 01.634-.74A49.109 49.109 0 0112 9c2.59 0 5.134.202 7.616.592a.75.75 0 01.634.74zm-7.5 2.418a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75zm3-.75a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0v-6.75a.75.75 0 01.75-.75zM9 12.75a.75.75 0 00-1.5 0v6.75a.75.75 0 001.5 0v-6.75z" clipRule="evenodd" />
+                  <path d="M12 7.875a1.125 1.125 0 100-2.25 1.125 1.125 0 000 2.25z" />
+                </svg>
+
+                } subtasks={[{ task: 'Read about multicore processing', date: 'Nov 22' }, { task: 'CSV to JSON', date: 'Nov 22', completed: true }]}></Task>
+            )} */}
+
+          {tasks.map((task, index) => {
+            if (task.group === courses[courseIndex].id)
+              return (
+                <Task key={task.id}
+                  tasks={tasks}
+                  taskIndex={index}
+                  updateTasks={updateTasks}
+                />);
+          })}
+
+          {showNewTask &&
+            <div className={`${styles.newTask} vertical-align`}
+              style={{ animation: 'slideDown 0.3s', zIndex: "-10" }}>
+              <input type="text"
+                placeholder='Another thing I have to do...'
+                value={newTask}
+                onKeyDown={e => handleNewTask(e)}
+                onChange={e => setNewTask(e.target.value)}
+                autoFocus />
+            </div>
+          }
+
+          <div style={{ textAlign: 'center', marginTop: '24px', marginBottom: '32px' }}>
+            {!showNewTask &&
+              <Tag text="New Task"
+                onClick={() => setShowNewTask(true)}
+                leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                }></Tag>
+            }
+            {showNewTask &&
+              <Tag text="Cancel"
+                onClick={() => { setShowNewTask(false); setNewTask(''); }} backgroundColor="var(--red-70)"
+                rightIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>}></Tag>
+            }
+          </div>
+        </div>
       </div>
+
+
       <div className={styles.panel}>
         <div className={`vertical-align ${styles.panelHeader}`}>
           <div>
-            <p className={styles.panelTitle}>CSCI 3110U</p>
-            <p className={styles.panelSubtitle}>Winter 2023</p>
+            <p className={styles.panelTitle}>{course.code}</p>
+            <p className={styles.panelSubtitle}>{semester}</p>
           </div>
         </div>
         <div className={styles.courseDetailsContainer}>
           <CourseDetails
             type="Lecture"
-            instructor="Rupinder Brar"
-            times="6:10 PM - 9:30 PM"
-            location="UA 1350"
-            crn="42623"
-            mon={true} thurs={true} />
-          <CourseDetails
-            type="Labs"
-            instructor="Emily Wu"
-            times="6:10 PM - 9:30 PM"
-            location="ERC 1010"
-            crn="42625"
-            wed={true} />
-          <CourseDetails
-            type="Tutorials"
-            instructor="Tammy Wang"
-            times="6:10 PM - 9:30 PM"
-            location="OT-Online"
-            crn="42628"
-            fri={true} />
+            instructor={course.prof}
+            times={`${formatTime(course.startTime)} - ${formatTime(course.endTime)}`}
+            location={course.location}
+            schedule={course.schedule} />
+          {course.sections && course.sections.map((section, index) =>
+            <div onClick={() => editSection(index)} key={section.id}>
+              <CourseDetails
+                type={section.type}
+                instructor={section.prof}
+                times={`${formatTime(section.startTime)} - ${formatTime(section.endTime)}`}
+                location={section.location}
+                schedule={section.schedule} />
+            </div>
+          )}
           <div className={styles.newCourseDetails}>
             <Tag text="Add Section" backgroundColor='var(--accent)' color='var(--gray-10)' fontWeight='400'
+              onClick={() => setShowNewSection(true)}
               leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>}></Tag>

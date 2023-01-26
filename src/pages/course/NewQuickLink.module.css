@@ -1,0 +1,12 @@
+.submit {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit > * {
+    margin-left: 8px;
+}
+
+.form > * {
+    margin-top: 8px;
+}

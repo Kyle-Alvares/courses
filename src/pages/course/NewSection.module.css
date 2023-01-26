@@ -1,0 +1,38 @@
+.submit {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit>* {
+    margin-left: 8px;
+}
+
+.form>* {
+    margin-top: 8px;
+}
+
+.days>* {
+    margin-right: 8px;
+}
+
+input[type="time"] {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 6px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    background-color: var(--cool-gray-80);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    height: 14px;
+    width: 14px;
+    border-radius: 6px;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    cursor: pointer;
+    background-color: var(--accent);
+
+}

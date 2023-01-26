@@ -13,6 +13,11 @@ header {
     border-bottom: 1px solid var(--border-clr);
 }
 
+.tasks {
+    max-height: calc(100vh - 64px - 56px);
+    overflow-y: auto;
+}
+
 .courseName {
     font-size: 14px;
     font-weight: 450;
@@ -39,7 +44,7 @@ header {
     padding: 0 24px;
 }
 
-.quickLinks > * {
+.quickLinks .left > *  {
     margin-right: 8px;
 }
 
@@ -65,3 +70,17 @@ header {
     color: var(--gray-40);
 }
 
+.newTask {
+    height: 40px;
+    padding: 0 24px;
+    font-size: 13px;
+    background-color: #27292c;
+    border-bottom: 1px solid var(--border-clr);
+}
+
+.newTask input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+}

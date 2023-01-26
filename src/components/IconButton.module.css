@@ -1,3 +1,13 @@
 .iconButton svg {
     padding: 1px;
+    transition: 0.3s ease;
+}
+
+.iconButton:hover {
+    cursor: pointer;
+}
+
+.iconButton:hover svg {
+    padding: 2px;
+    transition: 0.3s ease;
 }
