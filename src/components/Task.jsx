@@ -4,7 +4,6 @@ import Tag from './Tag';
 import IconButton from './IconButton';
 import EditTask from './modals/EditTask';
 import { formatDate, formatTime } from '../data/dates';
-import SizedBox from './SizedBox';
 
 export default function Task({
     tasks,

@@ -37,6 +37,7 @@ export default function NewQuickLink({
         } else {
             if (!courses[courseIndex].quicklinks) courses[courseIndex].quicklinks = [];
             courses[courseIndex].quicklinks.push({
+                id: uuid(),
                 text,
                 href,
                 color: color.includes('cool-gray') ? 'cool-gray' : color.split('--')[1].split('-')[0],

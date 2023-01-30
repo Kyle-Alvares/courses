@@ -10,8 +10,6 @@ export default function EditTask({
     dismissModal = null
 }) {
 
-    const [showDate, setShowDate] = useState(task.dueDate === '' ? false : true);
-    const [showTime, setShowTime] = useState(task.time === '' ? false : true);
     const [taskDate, setTaskDate] = useState(task.dueDate);
     const [taskTime, setTaskTime] = useState(task.time);
     const [taskText, setTaskTtext] = useState(task.task);
@@ -21,6 +19,13 @@ export default function EditTask({
     const shake = 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both';
 
     const onSubmit = () => {
+
+        if(taskText.trim() === '') {
+            setAnimation(shake);
+            setTimeout(() => setAnimation(''), 820);
+            return;
+        }
+
         updateTask({
             ...task,
             task: taskText,

@@ -78,7 +78,7 @@ export default function CourseTile({
                             key={index} // TODO: Fix with uuid
                             text={quicklink.text}
                             href={quicklink.href}
-                            backgroundColor={`var(--${quicklink.color}-50)`}
+                            backgroundColor={`var(--${quicklink.color}-60)`}
                             icon={<div className={`stroke-${quicklink.color} vertical-align`}>
                                 <img height="16px" width="16px" alt={quicklink.icon}
                                     style={{ marginRight: "4px", filter: "invert(100%)" }}
